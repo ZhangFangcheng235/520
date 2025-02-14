@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情人节</title>
+    <style>
+        /* 基础样式 */
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            font-family: '楷体', cursive;
+        }
+
+        /* 烟花容器 */
+        .fireworks {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* 单个烟花粒子 */
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        /* 玫瑰容器 */
+        .rose-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+
+        /* 玫瑰花蕾 */
+        .rose {
+            width: 80px;
+            height: 120px;
+            position: relative;
+            transition: all 1s ease;
+        }
+
+        /* 花瓣动画 */
+        .petal {
+            position: absolute;
+            background: #ff3366;
+            border-radius: 0 20px 20px 0;
+            transform-origin: bottom;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 绽放状态 */
+        .bloom .petal {
+            transform: rotate(calc(var(--i) * 30deg)) translateY(-20px);
+        }
+
+        /* 滑动框 */
+        .slide-box {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #ff3366;
+            animation: slideUp 1s 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* 祝福文本框 */
+        .blessing-box {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* 跳转按钮 */
+        .emo-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 30px;
+            background: #ff3366;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+        }
+
+        .emo-btn:hover {
+            transform: translateX(-50%) scale(1.1);
+            background: #ff1a4d;
+        }
+
+        /* 动画定义 */
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        @keyframes slideUp {
+            to { bottom: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="fireworks" id="fireworks"></div>
+    
+    <div class="rose-container" onclick="toggleBloom()">
+        <div class="rose" id="rose">
+            <!-- 通过JS动态生成花瓣 -->
+        </div>
+    </div>
+
+    <div class="slide-box">您如果暂时没有有关2.14主题的人，可以进入emo室</div>
+
+    <div class="blessing-box">
+        <p id="blessing-text">正在加载祝福语...</p>
+    </div>
+
+    <button class="emo-btn" onclick="location.href='emo-room.html'">进入Emo室</button>
+
+    <script>
+        // 烟花动画
+        function createFirework(x, y) {
+            const fireworks = document.getElementById('fireworks');
+            for(let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+                
+                const angle = (Math.PI * 2 * i) / 50;
+                const speed = 3 + Math.random() * 5;
+                particle.style.setProperty('--dx', Math.cos(angle) * speed);
+                particle.style.setProperty('--dy', Math.sin(angle) * speed);
+                
+                fireworks.appendChild(particle);
+                setTimeout(() => particle.remove(), 1000);
+            }
+        }
+
+        // 生成玫瑰花
+        function createRose() {
+            const rose = document.getElementById('rose');
+            for(let i = 0; i < 12; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.setProperty('--i', i);
+                petal.style.width = `${40 + i*3}px`;
+                petal.style.height = `${60 + i*5}px`;
+                petal.style.filter = `brightness(${0.8 + i*0.03})`;
+                rose.appendChild(petal);
+            }
+        }
+
+        // 切换绽放状态
+        function toggleBloom() {
+            document.getElementById('rose').classList.toggle('bloom');
+        }
+
+        // 祝福语列表（示例）
+        const blessings = [
+            "你是我的今天和所有的明天",
+            "遇见你是最美丽的意外",
+            "爱是永不止息",
+            "心心相印，白头偕老",
+            // 添加更多祝福语...
+        ];
+
+        // 祝福语轮换
+        let blessingIndex = 0;
+        const blessingElement = document.getElementById('blessing-text');
+        function updateBlessing() {
+            blessingElement.textContent = blessings[blessingIndex];
+            blessingIndex = (blessingIndex + 1) % blessings.length;
+        }
+        setInterval(updateBlessing, 3000);
+
+        // 初始化
+        window.onload = () => {
+            createRose();
+            document.addEventListener('click', (e) => {
+                createFirework(e.clientX, e.clientY);
+            });
+            updateBlessing();
+        }
+    </script>
+</body>
+</html>

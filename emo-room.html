@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emo室</title>
+
+    <style>
+        /* 基础样式 */
+        body {
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            font-family: '楷体', cursive;
+            color: #fff;
+        }
+
+        /* 视频背景 */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 确保视频覆盖整个背景 */
+            z-index: -1; /* 将视频置于最底层 */
+        }
+
+        /* 今日话题容器 */
+        .topic-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        /* 高亮重点内容 */
+        .highlight {
+            color: #ff3366; /* 粉色高亮 */
+            font-weight: bold;
+        }
+
+        /* 返回按钮 */
+        .back-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 30px;
+            background: #ff3366;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+        }
+
+        .back-btn:hover {
+            transform: translateX(-50%) scale(1.1);
+            background: #ff1a4d;
+        }
+    </style>
+</head>
+<body>
+    <!-- 视频背景 -->
+    <video class="video-background" autoplay muted loop>
+        <source src="rain.mp4" type="video/mp4">
+        您的浏览器不支持视频标签。
+    </video>
+
+    <!-- 今日话题 -->
+    <div class="topic-container">
+        <p><span class="highlight">今日话题:</span></p>
+        <p>“既然喜欢,为什么不表白呢?</p>
+        <p><span class="highlight">热评:</span></p>
+        <p>故事的开头是<span class="highlight">脸红</span>，故事的结尾是<span class="highlight">眼红</span>，</p>
+        <p>暗恋一旦成为明恋，要么关系<span class="highlight">更进一步</span>，要么<span class="highlight">满盘皆输</span>”</p>
+    </div>
+
+    <!-- 返回按钮 -->
+    <button class="back-btn" onclick="location.href='index.html'">返回主页</button>
+</body>
+</html>

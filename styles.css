@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #ffcbd3, #da0c7abe);
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+#particleCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+#heartContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.heart {
+    position: relative;
+    width: 100px;
+    height: 90px;
+    background-color: red;
+    transform: rotate(-45deg);
+    animation: moveHeart 5s infinite;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 90px;
+    background-color: red;
+    border-radius: 50px 50px 0 0 / 50% 50% 0 0;
+}
+
+.heart::before {
+    left: 50px;
+    top: 0;
+}
+
+.heart::after {
+    top: -40px;
+    left: 0;
+}
+
+#message {
+    color: white;
+    font-size: 3em;
+    text-align: center;
+    margin-top: 20px;
+    animation: fadeIn 10s infinite;
+}
+
+@keyframes moveHeart {
+    0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 1; }
+    25% { transform: translateX(-50px) translateY(-50px) rotate(-45deg); opacity: 0.5; }
+    50% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 1; }
+    75% { transform: translateX(50px) translateY(-50px) rotate(-45deg); opacity: 0.5; }
+    100% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+#roseContainer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.rose {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: pink;
+    border-radius: 50% 50% 0 0 / 50% 50% 0 0;
+    transform: rotate(-30deg);
+    transition: transform 1s, border-radius 1s;
+}
+
+.rose::before,
+.rose::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: pink;
+    border-radius: 50% 50% 0 0 / 50% 50% 0 0;
+    transition: transform 1s, border-radius 1s;
+}
+
+.rose::before {
+    top: 0;
+    left: 50px;
+    transform: rotate(-120deg);
+}
+
+.rose::after {
+    top: 50px;
+    left: 0;
+    transform: rotate(30deg);
+}
+
+.rose.open {
+    border-radius: 50% 50% 50% 50%;
+    transform: rotate(0deg);
+}
+
+.rose.open::before {
+    top: 20px;
+    left: 40px;
+    transform: rotate(-60deg);
+}
+
+.rose.open::after {
+    top: 20px;
+    left: -10px;
+    transform: rotate(60deg);
+}
+
+#emoRoomButton {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #C71585;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+#emoRoomButton:hover {
+    background-color: #FF1493;
+}
